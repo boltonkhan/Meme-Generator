@@ -214,6 +214,11 @@ def unsplash_post():
         except FileNotFoundError:
             return redirect(url_for('unsplash_form'))
 
+        except ConnectionError as e:
+            error = e.args[0] if e.args else \
+                "Something gone wrong with the connection."
+            return render_template('base.html', error=error)
+
         else:
             return render_template('meme.html', path=path)
 

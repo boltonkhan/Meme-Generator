@@ -97,7 +97,7 @@ def save_bytes(content: bytes, path: str) -> str:
     :path type: str
     """
     path = pathlib.Path(path)
-
+    os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, 'wb+') as file:
         file.write(content)
 
