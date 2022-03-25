@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Meme Generator{% endblock %}
+{% block body %}
+<img src="{{ path }}" />
+<div class="nav" id="download">
+    <a class="btn btn-success" href="{{url_for('download')}}">Download</a>
+</div>
+{% endblock %}

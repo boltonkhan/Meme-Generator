@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Unsplash: Meme Generator{% endblock %}
+{% block body %}
+<div class="card" style="width: 500px; max-width: 100%;">
+    <div class="card-body">
+        <form action="{{url_for('unsplash_post')}}" method="POST">
+            <div class="form-group">
+                <img class="img-form rounded mx-auto d-block" src="{{ path }}"/>
+                <input type="hidden" value="{{path}}" name="img_path"/>
+            </div>
+            <div class="input-group">
+                <span class="input-group-text">Quote Body</span>
+                <textarea class="form-control" aria-label="Quote Body" placeholder="To be or not to be..." name="body"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="author">Quote Author</label>
+                <input type="text" class="form-control" id="author" aria-describedby="Quote Author" placeholder="Shakespeare" name="author"/>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Meme!</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
