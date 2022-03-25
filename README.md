@@ -68,7 +68,7 @@ For more info use `python meme.py --help`
   - each correct generated meme can be download using Download button
   
 ## Example Meme
-![Example meme](_data/memes/cPEtQv81bs.png)
+![Example meme](https://github.com/boltonkhan/Meme-Generator/blob/bc009d85522363087c264997174fb1e6086078ce/_data/memes/7cVuJUuHVw.png)
 
 ## Project Status
 _no longer being worked on_ 
