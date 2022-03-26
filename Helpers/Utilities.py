@@ -10,6 +10,13 @@ from typing import List
 import pandas as pd
 
 
+def is_windows():
+    """Check if system is Windows."""
+    if os.name == 'nt':
+        return True
+    return False
+
+
 def get_extension(path: str) -> str:
     """Get given file extension/type.
 
@@ -53,9 +60,15 @@ def find_files_by_ext(
     :rtype: List of str
     """
     def filter_files(paths: List[str], dir_: str) -> List[pathlib.Path]:
+        split_by = None
+        if is_windows():
+            split_by = "\\"
+        else:
+            split_by = "/"
+
         paths = list(
             map(
-                lambda path: str(pathlib.Path(path)).split("\\"), paths
+                lambda path: str(pathlib.Path(path)).split(split_by), paths
             )
         )
         paths = list(
