@@ -22,14 +22,6 @@ from Services.Exceptions.UnsupportedImageError import UnsuportedImageError
 from Services.ImageDownloader.ImageDownloader import ImageDownloader
 
 
-error_msgs = {
-    'text_to_long': 'Text is to long. '
-    'Try to make it shorter (max 300 chars in total).',
-    'not_filled': 'All fields must be filled!',
-    'not_url': 'Provide valid url!',
-    'unsupported_img': 'Not supported image or not image content!'
-}
-
 storage = '_data/memes'
 tmp = '_data/memes/tmp/'
 static_url = f"/{storage}"
@@ -49,10 +41,14 @@ def get_online_quotes():
         online_quotes = GoodReadScrapper.get_quotes()
 
     except requests.HTTPError as e:
-        ExLogger().log(e)
+        error = e.args[0] if e.args else \
+                "Something gone wrong with the connection."
+        ExLogger().log(error)
 
     except ConnectionError as e:
-        ExLogger().log(e)
+        error = e.args[0] if e.args else \
+                "Something gone wrong with the connection."
+        ExLogger().log(error)
 
     finally:
         if online_quotes:
@@ -126,23 +122,18 @@ def meme_post():
             path = meme.make_meme(temp_img, quote.body, quote.author)
 
         except AssertionError as e:
-            # error = error_msgs['text_to_long']
             error = str(e)
 
         except TextTooLongError as e:
-            # error = error_msgs['text_to_long']
             error = str(e)
 
         except InvalidUrlError as e:
-            # error = error_msgs['not_url']
             error = str(e)
 
         except UnsuportedImageError as e:
-            # error = error_msgs['unsupported_img']
             error = str(e)
 
         except ValueError as e:
-            # error = error_msgs['not_filled']
             error = e.args[0] if e.args else \
                 "Something gone wrong. Meybe you didn't fill all fields?"
 
@@ -205,19 +196,20 @@ def unsplash_post():
             path = meme.make_meme(img_path, quote.body, quote.author)
 
         except AssertionError as e:
-            error = e.args
+            error = str(e)
 
-        except TextTooLongError:
-            error = error_msgs['text_to_long']
+        except TextTooLongError as e:
+            error = str(e)
 
-        except InvalidUrlError:
-            error = error_msgs['not_url']
+        except InvalidUrlError as e:
+            error = str(e)
 
-        except UnsuportedImageError:
-            error = error_msgs['unsupported_img']
+        except UnsuportedImageError as e:
+            error = str(e)
 
-        except ValueError:
-            error = error_msgs['not_filled']
+        except ValueError as e:
+            error = e.args[0] if e.args else \
+                "Something gone wrong. Meybe you didn't fill all fields?"
 
         except FileNotFoundError:
             return redirect(url_for('unsplash_form'))

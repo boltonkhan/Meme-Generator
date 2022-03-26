@@ -10,13 +10,6 @@ from typing import List
 import pandas as pd
 
 
-def is_windows() -> bool:
-    """Check is the system is a Windows OS."""
-    if os.name == "nt":
-        return True
-    return False
-
-
 def get_extension(path: str) -> str:
     """Get given file extension/type.
 
