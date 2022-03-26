@@ -10,6 +10,13 @@ from typing import List
 import pandas as pd
 
 
+def is_windows() -> bool:
+    """Check is the system is a Windows OS."""
+    if os.name == "nt":
+        return True
+    return False
+
+
 def get_extension(path: str) -> str:
     """Get given file extension/type.
 
@@ -76,10 +83,10 @@ def find_files_by_ext(
 
                 if extension is not None:  # extension defined
                     if file.endswith(extension):
-                        paths.append(os.path.join(".\\" + root, file))
+                        paths.append(os.path.join(root, file))
 
                 else:  # extension does not defined
-                    paths.append(os.path.join(".\\" + root, file))
+                    paths.append(os.path.join(root, file))
 
     if dir_to_exclude:
         paths = filter_files(paths, dir_to_exclude)
@@ -113,6 +120,7 @@ def save_csv(json: str, path: str) -> None:
     :path type: str
     """
     path = pathlib.Path(path)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
     df = pd.read_json(json)
     df.to_csv(path, index=False)
 

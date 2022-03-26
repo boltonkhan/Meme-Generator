@@ -94,7 +94,7 @@ class TextIngestor(IngestorInterface):
         if len(data_row) != 2:  # 2 elements expected
 
             raise WrongFileStructureError(
-                f"Wrong file structure. Expected: <body> - <quote>."
+                f"Wrong file structure. Expected: <body> - <quote>. "
                 f"Provided: {data_row}"
             )
 

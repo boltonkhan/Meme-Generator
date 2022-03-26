@@ -98,9 +98,8 @@ class PdfIngestor(IngestorInterface):
         if len(data_row) != 2:  # 2 elements expected
 
             raise WrongFileStructureError(
-                expected="<string value> - <string value>",
-                value=data_row,
-                details=str(cls)
+                f"Wrong file structure. Expected: <body> - <quote>. "
+                f"Provided: {data_row}"
             )
 
         body = data_row[0]  # quote

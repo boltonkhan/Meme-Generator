@@ -32,4 +32,4 @@ class WrongFileStructureError(ValueError):
 
     def __str__(self):
         """Represent {str} of the object."""
-        return f"{self.__dict__}"
+        return f"{self.msg}"

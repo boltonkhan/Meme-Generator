@@ -70,7 +70,7 @@ def load_quotestoscrap_quotes():
 
 
 def get_local_quotes(
-                     data_storage: str = './_data',
+                     data_storage: str = '_data',
                      excluded_dir: str = 'SimpleLines'
                      ) -> QuoteModel:
     """Get random quote from local files.
@@ -102,7 +102,7 @@ def get_local_quotes(
     return quotes
 
 
-def get_local_images(data_storage: str = './_data/photos') -> List[str]:
+def get_local_images(data_storage: str = '_data/photos') -> List[str]:
     """Collect path to all local images in data storage.
 
     Limit results to supported files only.
@@ -156,7 +156,6 @@ def remove_old_memes(dir_path: str, older_than: int = 172800) -> None:
     :older_than type: int
     """
     files = []
-    print("Removing old files delegated to the separate process....")
     for format in MemeEngine.SUPPORTED_FORTMATS.keys():
         files.extend(util.find_files_by_ext(dir_path, format))
 

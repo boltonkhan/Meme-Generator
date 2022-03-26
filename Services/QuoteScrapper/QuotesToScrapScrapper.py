@@ -22,7 +22,7 @@ class QuoteToScrapScrapper(QuoteScrapperInterface):
     :DATA_STORAGE type: str
     """
 
-    DATA_STORAGE = "./_data/Quotestoparse/quotes_toscrap.csv"
+    DATA_STORAGE = "_data/Quotestoparse/quotes_toscrap.csv"
     BASE_URL = "https://quotes.toscrape.com"
 
     @classmethod

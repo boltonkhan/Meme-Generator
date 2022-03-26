@@ -74,8 +74,8 @@ class UnsplashService():
     """
 
     BASE_URL = "https://api.unsplash.com/"
-    STORAGE = "./_data/photos/unsplash/"
-    DEF_CONF_FILE = "./_config_files/unsplash_config.json"
+    STORAGE = "_data/photos/unsplash/"
+    DEF_CONF_FILE = "_config_files/unsplash_config.json"
 
     def __init__(self, config_path: str = DEF_CONF_FILE,
                  storage_path: str = STORAGE) -> None:

@@ -36,7 +36,7 @@ class MemeEngine():
         ".png": "PNG"
     }
 
-    DEF_OUTPUT_DIR = "./tmp"
+    DEF_OUTPUT_DIR = "_data/memes"
     MAX_WIDTH = 500
 
     def __init__(self, output_dir: str = DEF_OUTPUT_DIR) -> None:
@@ -79,6 +79,7 @@ class MemeEngine():
         :return: A path/location to/of transformed image
         :rtype: str
         """
+        img_path = pathlib.Path(img_path)
         image = self._open_image(img_path)  # open image
         image = self._resize_image(image, width)  # resize image
 

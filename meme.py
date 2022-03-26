@@ -25,7 +25,7 @@ from Services import ImageDownloader, UnsplashService
 from Services.QuoteScrapper.GoodReadScrapper import GoodReadScrapper
 
 
-data_storage = './_data'
+data_storage = '_data'
 default_dir = f"{data_storage}/memes"
 tmp_dir = f"{default_dir}/tmp"
 
@@ -71,7 +71,7 @@ def generate_meme(
 
     elif url and not path and not unsplash:  # img from url
         filename = \
-            f"tmp_{util.build_random_str(4)}{util.get_extension(url)}"
+            f"{util.build_random_str(4)}{util.get_extension(url)}"
         path = os.path.join(tmp_dir, filename)
 
         img_path = ImageDownloader.dowload_to_file(url=url, path=path)
@@ -85,7 +85,7 @@ def generate_meme(
             if images[0].local_path is not None:
                 img_path = images[0].local_path
         else:
-            raise ValueError("No image data found!")
+            raise ValueError("Unsplash error. No image data found!")
 
     else:  # can't mix attributes
         raise ValueError(
@@ -236,7 +236,7 @@ if __name__ == "__main__":
         print(
             "Whoops, there is something wrong "
             "with your internet connection. Just generate meme "
-            "from we've got."
+            "from we've got locally."
             )
     else:
         print(path)

@@ -3,6 +3,7 @@
 import atexit
 import multiprocessing
 import os
+import pathlib
 import random
 
 import requests
@@ -65,7 +66,8 @@ def get_unsplash_image():
     service = UnsplashService(storage_path=tmp)
     un_images = service.get_random(count=1)
     if not un_images or not un_images[0].local_path:
-        raise ValueError("Something went wrong. Try again later!")
+        raise ValueError(
+            "Something went wrong downloading unsplash image.")
     return un_images[0].local_path
 
 
@@ -113,30 +115,36 @@ def meme_post():
             quote = QuoteModel(body, author)
 
             if not url or not body or not author:
-                raise ValueError
+                raise ValueError('All fields must be filled!')
 
             filename = \
-                f"tmp_{util.build_random_str(4)}{util.get_extension(url)}"
+                f"{util.build_random_str(4)}{util.get_extension(url)}"
 
             temp_img = os.path.join(tmp, filename)
             temp_img = ImageDownloader.dowload_to_file(url, temp_img)
 
             path = meme.make_meme(temp_img, quote.body, quote.author)
 
-        except AssertionError:
-            error = error_msgs['text_to_long']
+        except AssertionError as e:
+            # error = error_msgs['text_to_long']
+            error = str(e)
 
-        except TextTooLongError:
-            error = error_msgs['text_to_long']
+        except TextTooLongError as e:
+            # error = error_msgs['text_to_long']
+            error = str(e)
 
-        except InvalidUrlError:
-            error = error_msgs['not_url']
+        except InvalidUrlError as e:
+            # error = error_msgs['not_url']
+            error = str(e)
 
-        except UnsuportedImageError:
-            error = error_msgs['unsupported_img']
+        except UnsuportedImageError as e:
+            # error = error_msgs['unsupported_img']
+            error = str(e)
 
-        except ValueError:
-            error = error_msgs['not_filled']
+        except ValueError as e:
+            # error = error_msgs['not_filled']
+            error = e.args[0] if e.args else \
+                "Something gone wrong. Meybe you didn't fill all fields?"
 
         except requests.HTTPError as e:
             error = e.args[0] if e.args else \
@@ -190,7 +198,7 @@ def unsplash_post():
             author = result["author"]
 
             if not body or not author:
-                raise ValueError
+                raise ValueError('All fields must be filled!')
 
             quote = QuoteModel(body, author)
 
@@ -241,7 +249,7 @@ if __name__ == "__main__":
 
     # delete ald files
     p = multiprocessing.Process(
-        target=common.remove_old_memes, args=(f"./{storage}",))
+        target=common.remove_old_memes, args=(f"{storage}",))
     p.daemon = True
     p.start()
 

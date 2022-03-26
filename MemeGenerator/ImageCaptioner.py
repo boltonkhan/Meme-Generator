@@ -1,5 +1,6 @@
 """Infractructure to draw caption on images."""
 
+import pathlib
 import textwrap
 from random import choice
 from string import ascii_letters
@@ -35,7 +36,7 @@ class ImageCaptioner():
     """
 
     FONT_FORMAT = ".ttf"
-    DEF_FONTS_DIR = ".\\_data\\_fonts"
+    DEF_FONTS_DIR = "_data/_fonts"
     FONT_SIZE = 22
     IMG_MARGIN = 0.07
     SPACING = 4
@@ -49,9 +50,9 @@ class ImageCaptioner():
 
         self._canvas = self._get_canvas_size()
 
-        self.fonts_dir = fonts_dir \
+        self.fonts_dir = pathlib.Path(fonts_dir) \
             if fonts_dir != self.__class__.DEF_FONTS_DIR \
-            else self.__class__.DEF_FONTS_DIR
+            else pathlib.Path(self.__class__.DEF_FONTS_DIR)
 
         self.set_font_style()
 
@@ -151,7 +152,10 @@ class ImageCaptioner():
         final_text_size = self._get_text_size(text_to_draw)  # final text size
 
         if not self._is_enough_space(final_text_size):  # is text fits canvas
-            raise TextTooLongError
+            raise TextTooLongError(
+                "The quote doen't fit to the image size. "
+                "It can be coused by the font style."
+            )
 
         text_coord = \
             self._get_text_coord(final_text_size)  # random text coordinations

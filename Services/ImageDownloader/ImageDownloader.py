@@ -41,7 +41,7 @@ class ImageDownloader():
 
             if not cls.is_supported:
                 raise UnsuportedImageError(
-                    "Not supported image or not image content!")
+                    "Unsupported image format or not image content!")
 
             return result.content
 
