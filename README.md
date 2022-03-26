@@ -24,7 +24,7 @@ files, external libraries, APIs, multiprocessing etc. in Python.
 ## Setup
 - To run the app you need to use at least Phython 3.9. 
 - Additional required libraries are listed in *"requirements.txt"* file.
-- Aditionally you need to install pdftotext CLI tool: https://www.xpdfreader.com/pdftotext-man.html with is not covered in *"requirements.txt"* file.
+- Aditionally you need to install pdftotext CLI tool: https://www.xpdfreader.com/pdftotext-man.html which is not covered in *"requirements.txt"* file.
 - To use all features of the app is needed to have an active api key of the unsplash api. The api key should be stored in the valid json file with the structure:
 
 `{
